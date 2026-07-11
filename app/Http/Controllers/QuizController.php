@@ -40,6 +40,7 @@ class QuizController extends Controller
         $sessionKey = 'quiz_start_' . $quiz->id;
         if (!session()->has($sessionKey)) {
             session()->put($sessionKey, now());
+            \App\Models\ActivityLog::record('Start Quiz', "Participant started quiz: {$quiz->title} (ID: {$quiz->id})");
         }
 
         $quiz->load([
@@ -96,6 +97,8 @@ class QuizController extends Controller
             // Hapus sesi waktu mulai dan lepaskan lock
             session()->forget($sessionKey);
             $lock->release();
+            
+            \App\Models\ActivityLog::record('Submit Quiz', "Participant submitted quiz: {$quiz->title} (ID: {$quiz->id}) with score: {$attempt->score}");
 
             return redirect()->route('quizzes.result', ['quiz' => $quiz->id, 'attempt' => $attempt->id]);
             

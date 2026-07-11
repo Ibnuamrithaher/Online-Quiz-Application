@@ -16,7 +16,11 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     
-                    @if(!Auth::user()->is_admin)
+                    @if(Auth::user()->is_admin)
+                    <x-nav-link :href="route('admin.activity-logs.index')" :active="request()->routeIs('admin.activity-logs.*')">
+                        {{ __('Activity Logs') }}
+                    </x-nav-link>
+                    @else
                     <x-nav-link :href="route('quizzes.history')" :active="request()->routeIs('quizzes.history')">
                         {{ __('Riwayat Ujian') }}
                     </x-nav-link>
@@ -77,7 +81,11 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             
-            @if(!Auth::user()->is_admin)
+            @if(Auth::user()->is_admin)
+            <x-responsive-nav-link :href="route('admin.activity-logs.index')" :active="request()->routeIs('admin.activity-logs.*')">
+                {{ __('Activity Logs') }}
+            </x-responsive-nav-link>
+            @else
             <x-responsive-nav-link :href="route('quizzes.history')" :active="request()->routeIs('quizzes.history')">
                 {{ __('Riwayat Ujian') }}
             </x-responsive-nav-link>

@@ -22,7 +22,8 @@ Aplikasi Online Quiz sederhana yang dibangun menggunakan Laravel 11, sebagai bag
 - **Keamanan (Time Limit Enforcement)**: Validasi durasi dari *backend session* untuk mencegah manipulasi batas waktu.
 - **Ketahanan (Mencegah Double Submit)**: Proteksi dengan *Cache Lock* (`Atomic Locks`) untuk mencegah form terkirim ganda saat koneksi tidak stabil.
 - **Performa (Anti N+1 Query)**: Peningkatan performa pada kalkulasi nilai akhir (Eager loading otomatis pada *relational data*).
-- **Unit & Feature Testing (Automated Tests)**: Telah dilengkapi dengan >30 Skenario Testing (*Admin/Peserta, Timeouts, Scoring*) memastikan sistem bekerja bebas *bug*.
+- **Activity Log (Audit Trail)**: Merekam setiap jejak aktivitas (*login/logout*, pembuatan soal, pengerjaan kuis) beserta alamat IP secara real-time yang dapat dipantau oleh Administrator (implementasi *custom model* tanpa *package* eksternal).
+- **Unit & Feature Testing (Automated Tests)**: Telah dilengkapi dengan >30 Skenario Testing (*Admin/Peserta, Timeouts, Scoring, Security/ActivityLog*) memastikan sistem bekerja bebas *bug*.
 - **Seeder & Factory**: Data dummy komprehensif untuk Quiz, Pertanyaan, Opsi, Administrator, dan Peserta.
 ## Persyaratan Sistem
 - PHP 8.2 atau lebih tinggi

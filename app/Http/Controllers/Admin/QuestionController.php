@@ -45,6 +45,8 @@ class QuestionController extends Controller
             }
         }
 
+        \App\Models\ActivityLog::record('Add Question', "Admin added a question to quiz: {$quiz->title} (ID: {$quiz->id})");
+
         return redirect()->route('admin.quizzes.show', $quiz)->with('success', 'Question added successfully.');
     }
 
@@ -104,6 +106,8 @@ class QuestionController extends Controller
             $question->options()->whereNotIn('id', $existingOptionIds)->delete();
         }
 
+        \App\Models\ActivityLog::record('Update Question', "Admin updated a question in quiz: {$quiz->title} (ID: {$quiz->id})");
+
         return redirect()->route('admin.quizzes.show', $quiz)->with('success', 'Question updated successfully.');
     }
 
@@ -113,6 +117,9 @@ class QuestionController extends Controller
             Storage::disk('public')->delete($question->image_path);
         }
         $question->delete();
+        
+        \App\Models\ActivityLog::record('Delete Question', "Admin deleted a question from quiz: {$quiz->title} (ID: {$quiz->id})");
+        
         return redirect()->route('admin.quizzes.show', $quiz)->with('success', 'Question deleted successfully.');
     }
 }

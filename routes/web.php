@@ -24,6 +24,7 @@ Route::middleware(['auth', 'admin', 'throttle:60,1'])->prefix('admin')->name('ad
     Route::get('quizzes/{quiz}/attempts', [\App\Http\Controllers\Admin\AttemptController::class, 'index'])->name('quizzes.attempts.index');
     Route::get('quizzes/{quiz}/attempts/{attempt}', [\App\Http\Controllers\Admin\AttemptController::class, 'show'])->name('quizzes.attempts.show');
     Route::put('quizzes/{quiz}/attempts/{attempt}', [\App\Http\Controllers\Admin\AttemptController::class, 'grade'])->name('quizzes.attempts.grade');
+    Route::get('activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
 });
 
 Route::middleware(['auth', 'throttle:60,1'])->group(function () {

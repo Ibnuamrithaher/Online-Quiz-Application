@@ -30,7 +30,9 @@ class QuizController extends Controller
         $validated = $request->validated();
 
         $validated['is_active'] = $request->has('is_active');
-        Quiz::create($validated);
+        $quiz = Quiz::create($validated);
+
+        \App\Models\ActivityLog::record('Create Quiz', "Admin created quiz: {$quiz->title} (ID: {$quiz->id})");
 
         return redirect()->route('admin.quizzes.index')->with('success', 'Quiz created successfully.');
     }
@@ -56,12 +58,19 @@ class QuizController extends Controller
         $validated['is_active'] = $request->has('is_active');
         $quiz->update($validated);
 
+        \App\Models\ActivityLog::record('Update Quiz', "Admin updated quiz: {$quiz->title} (ID: {$quiz->id})");
+
         return redirect()->route('admin.quizzes.index')->with('success', 'Quiz updated successfully.');
     }
 
     public function destroy(Quiz $quiz)
     {
+        $title = $quiz->title;
+        $id = $quiz->id;
         $quiz->delete();
+
+        \App\Models\ActivityLog::record('Delete Quiz', "Admin deleted quiz: {$title} (ID: {$id})");
+
         return redirect()->route('admin.quizzes.index')->with('success', 'Quiz deleted successfully.');
     }
 }
